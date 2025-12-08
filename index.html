@@ -3,142 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transport Scolaire</title>
+    <title>Application de Transport Scolaire</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Transport Scolaire</h1>
-        <p>Gérez facilement les inscriptions et notifications pour un transport sûr.</p>
+        <h1>Application de Transport Scolaire</h1>
     </header>
-
-    <nav id="menu">
-        <button onclick="showSection('admin')">Espace Administrateur</button>
+    
+    <nav id="main-menu">
+        <h2>Choisissez votre espace :</h2>
         <button onclick="showSection('tuteur')">Espace Tuteur</button>
-        <button onclick="showSection('respo')">Espace Respo_Bus</button>
+        <button onclick="showSection('admin')">Espace Administrateur</button>
+        <button onclick="showSection('respo')">Espace Responsable Bus</button>
     </nav>
-
-    <div id="admin" class="section hidden">
-        <h2>Espace Administrateur</h2>
-        <p>Gérez tous les aspects du transport : bus, routes, élèves, chauffeurs, inscriptions et communications.</p>
-        
-        <div class="dashboard">
-            <h3>Ajouter un Bus</h3>
-            <form>
-                <label>Numéro du Bus :</label>
-                <input type="text" placeholder="Ex: BUS-001">
-                <label>Capacité :</label>
-                <input type="number" placeholder="Ex: 50">
-                <button type="submit">Ajouter</button>
-            </form>
-            
-            <h3>Liste des Élèves Inscrits aux Transports</h3>
-            <table>
-                <tr><th>Nom</th><th>Classe</th><th>Adresse</th><th>Trajet</th><th>Statut</th></tr>
-                <tr><td>Jean Dupont</td><td>CM2</td><td>123 Rue A</td><td>École → Maison</td><td>Validé</td></tr>
-                <tr><td>Marie Curie</td><td>CE1</td><td>456 Rue B</td><td>École → Maison</td><td>Validé</td></tr>
-                <tr><td>Paul Martin</td><td>CP</td><td>789 Rue C</td><td>École → Maison</td><td>En attente</td></tr>
-            </table>
-            
-            <h3>Liste des Chauffeurs</h3>
-            <table>
-                <tr><th>Nom</th><th>Numéro de Permis</th><th>Bus Assigné</th></tr>
-                <tr><td>Alice Dupont</td><td>123456789</td><td>BUS-001</td></tr>
-                <tr><td>Bob Leroy</td><td>987654321</td><td>BUS-002</td></tr>
-            </table>
-            
-            <h3>Valider/Refuser les Inscriptions</h3>
-            <p>Inscriptions en attente :</p>
-            <ul>
-                <li>Paul Martin (CP, 789 Rue C) - <button>Valider</button> <button>Refuser</button></li>
-                <li>Sophie Blanc (CE2, 101 Rue D) - <button>Valider</button> <button>Refuser</button></li>
-            </ul>
-            
-            <h3>Créer un Trajet/Horaires</h3>
-            <form>
-                <label>Nom du Trajet :</label>
-                <input type="text" placeholder="Ex: École → Maison">
-                <label>Heure de Départ :</label>
-                <input type="time">
-                <label>Heure d'Arrivée :</label>
-                <input type="time">
-                <label>Bus Assigné :</label>
-                <select>
-                    <option>BUS-001</option>
-                    <option>BUS-002</option>
-                </select>
-                <button type="submit">Créer Trajet</button>
-            </form>
-            
-            <h3>Envoyer un Message aux Tuteurs</h3>
-            <form>
-                <label>Sélectionner un Tuteur :</label>
-                <select>
-                    <option>Tuteur de Jean Dupont</option>
-                    <option>Tuteur de Marie Curie</option>
-                </select>
-                <label>Message :</label>
-                <textarea placeholder="Tapez votre message ici..."></textarea>
-                <button type="submit">Envoyer</button>
-            </form>
-        </div>
-        <button onclick="hideAll()">Retour</button>
-    </div>
-
-    <div id="tuteur" class="section hidden">
+    
+    <section id="tuteur" class="space">
         <h2>Espace Tuteur</h2>
-        <p>Inscrivez vos élèves au transport scolaire.</p>
-        <form>
-            <label>Nom de l'Élève :</label>
-            <input type="text" placeholder="Ex: Jean Dupont">
-            <label>Classe :</label>
-            <input type="text" placeholder="Ex: CM2">
-            <label>Adresse :</label>
-            <input type="text" placeholder="Ex: 123 Rue A">
-            <button type="submit">Inscrire</button>
-        </form>
-        <h3>Inscriptions Récentes</h3>
         <ul>
-            <li>Jean Dupont - CM2 - Inscrit le 01/10/2023</li>
-            <li>Marie Curie - CE1 - Inscrit le 02/10/2023</li>
+            <li>Suivre le déplacement en temps réel de l'élève via GPS</li>
+            <li>Inscription en ligne au transport scolaire</li>
         </ul>
-        <button onclick="hideAll()">Retour</button>
-    </div>
-
-    <div id="respo" class="section hidden">
-        <h2>Espace Respo_Bus</h2>
-        <p>Notifiez les parents des événements (absence, retard, arrivée).</p>
-        <form>
-            <label>Événement :</label>
-            <select>
-                <option>Élève absent</option>
-                <option>Bus en retard</option>
-                <option>Élève arrivé à la maison</option>
-            </select>
-            <label>Nom de l'Élève :</label>
-            <input type="text" placeholder="Ex: Jean Dupont">
-            <label>Message :</label>
-            <textarea placeholder="Détails supplémentaires..."></textarea>
-            <button type="submit">Envoyer Notification</button>
+        <form id="login-tuteur">
+            <label for="email-tuteur">Email :</label>
+            <input type="email" id="email-tuteur" required>
+            <label for="password-tuteur">Mot de passe :</label>
+            <input type="password" id="password-tuteur" required>
+            <button type="submit">Se connecter</button>
         </form>
-        <h3>Notifications Récentes</h3>
+    </section>
+    
+    <section id="admin" class="space">
+        <h2>Espace Administrateur</h2>
         <ul>
-            <li>Jean Dupont - Absent - 03/10/2023</li>
-            <li>Bus en retard - 04/10/2023</li>
+            <li>Accepter ou refuser les inscriptions</li>
+            <li>Gérer les trajets et horaires</li>
+            <li>Affecter chauffeurs et responsables</li>
+            <li>Accès aux listes (étudiants, chauffeurs, bus)</li>
         </ul>
-        <button onclick="hideAll()">Retour</button>
-    </div>
-
+        <form id="login-admin">
+            <label for="email-admin">Email :</label>
+            <input type="email" id="email-admin" required>
+            <label for="password-admin">Mot de passe :</label>
+            <input type="password" id="password-admin" required>
+            <button type="submit">Se connecter</button>
+        </form>
+    </section>
+    
+    <section id="respo" class="space">
+        <h2>Espace Responsable Bus</h2>
+        <ul>
+            <li>Notifier les tuteurs (arrivée, absence, retard)</li>
+            <li>Gérer les notifications en temps réel</li>
+        </ul>
+        <form id="login-respo">
+            <label for="email-respo">Email :</label>
+            <input type="email" id="email-respo" required>
+            <label for="password-respo">Mot de passe :</label>
+            <input type="password" id="password-respo" required>
+            <button type="submit">Se connecter</button>
+        </form>
+    </section>
+    
     <script>
-        function showSection(id) {
-            hideAll();
-            document.getElementById(id).classList.remove('hidden');
+        function showSection(sectionId) {
+            // Cacher toutes les sections
+            const sections = document.querySelectorAll('.space');
+            sections.forEach(section => section.style.display = 'none');
+            // Afficher la section sélectionnée
+            document.getElementById(sectionId).style.display = 'block';
         }
-        function hideAll() {
-            document.getElementById('admin').classList.add('hidden');
-            document.getElementById('tuteur').classList.add('hidden');
-            document.getElementById('respo').classList.add('hidden');
-        }
+        // Par défaut, cacher les sections
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.space');
+            sections.forEach(section => section.style.display = 'none');
+        });
     </script>
 </body>
 </html>

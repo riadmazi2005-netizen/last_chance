@@ -20,49 +20,125 @@
     
     <section id="tuteur" class="space">
         <h2>Espace Tuteur</h2>
-        <ul>
-            <li>Suivre le déplacement en temps réel de l'élève via GPS</li>
-            <li>Inscription en ligne au transport scolaire</li>
-        </ul>
         <form id="login-tuteur">
             <label for="email-tuteur">Email :</label>
             <input type="email" id="email-tuteur" required>
             <label for="password-tuteur">Mot de passe :</label>
             <input type="password" id="password-tuteur" required>
-            <button type="submit">Se connecter</button>
+            <button type="submit" onclick="login('tuteur')">Se connecter</button>
         </form>
+        <div id="tuteur-content" class="hidden">
+            <h3>Options pour Tuteur</h3>
+            <button onclick="showSubSection('inscription')">Faire une inscription en ligne</button>
+            <button onclick="showSubSection('suivi')">Suivre le déplacement en temps réel</button>
+            <div id="inscription" class="sub-section hidden">
+                <h4>Inscription en ligne</h4>
+                <form>
+                    <label for="nom-enfant">Nom de l'enfant :</label>
+                    <input type="text" id="nom-enfant" required>
+                    <label for="prenom-enfant">Prénom de l'enfant :</label>
+                    <input type="text" id="prenom-enfant" required>
+                    <label for="ecole">École :</label>
+                    <input type="text" id="ecole" required>
+                    <label for="type-transport">Type de transport :</label>
+                    <select id="type-transport">
+                        <option>Aller simple</option>
+                        <option>Retour seulement</option>
+                        <option>Aller-retour</option>
+                    </select>
+                    <button type="submit">Soumettre l'inscription</button>
+                </form>
+            </div>
+            <div id="suivi" class="sub-section hidden">
+                <h4>Suivi en temps réel</h4>
+                <p>Position actuelle du bus : [Simulation GPS - Latitude: 48.8566, Longitude: 2.3522]</p>
+                <p>Notifications : L'élève est arrivé à la maison.</p>
+            </div>
+        </div>
     </section>
     
     <section id="admin" class="space">
         <h2>Espace Administrateur</h2>
-        <ul>
-            <li>Accepter ou refuser les inscriptions</li>
-            <li>Gérer les trajets et horaires</li>
-            <li>Affecter chauffeurs et responsables</li>
-            <li>Accès aux listes (étudiants, chauffeurs, bus)</li>
-        </ul>
         <form id="login-admin">
             <label for="email-admin">Email :</label>
             <input type="email" id="email-admin" required>
             <label for="password-admin">Mot de passe :</label>
             <input type="password" id="password-admin" required>
-            <button type="submit">Se connecter</button>
+            <button type="submit" onclick="login('admin')">Se connecter</button>
         </form>
+        <div id="admin-content" class="hidden">
+            <h3>Options pour Administrateur</h3>
+            <button onclick="showSubSection('inscriptions')">Gérer les inscriptions</button>
+            <button onclick="showSubSection('listes')">Accès aux listes</button>
+            <button onclick="showSubSection('trajets')">Gérer les trajets et horaires</button>
+            <button onclick="showSubSection('affectations')">Affecter chauffeurs et responsables</button>
+            <div id="inscriptions" class="sub-section hidden">
+                <h4>Gérer les inscriptions</h4>
+                <p>Liste des inscriptions en attente :</p>
+                <ul>
+                    <li>Inscription 1 : Accepter <button>Oui</button> / Refuser <button>Non</button></li>
+                    <li>Inscription 2 : Accepter <button>Oui</button> / Refuser <button>Non</button></li>
+                </ul>
+            </div>
+            <div id="listes" class="sub-section hidden">
+                <h4>Listes</h4>
+                <p>Étudiants : Liste simulée</p>
+                <p>Chauffeurs : Liste simulée</p>
+                <p>Responsables de bus : Liste simulée</p>
+                <p>Bus en service : Liste simulée</p>
+            </div>
+            <div id="trajets" class="sub-section hidden">
+                <h4>Gérer les trajets et horaires</h4>
+                <form>
+                    <label for="trajet">Ajouter/Modifier trajet :</label>
+                    <input type="text" id="trajet" placeholder="Ex: École A - Maison B">
+                    <label for="horaire">Horaire :</label>
+                    <input type="time" id="horaire">
+                    <button type="submit">Enregistrer</button>
+                </form>
+            </div>
+            <div id="affectations" class="sub-section hidden">
+                <h4>Affecter chauffeurs et responsables</h4>
+                <form>
+                    <label for="bus">Bus :</label>
+                    <input type="text" id="bus" placeholder="Numéro du bus">
+                    <label for="chauffeur">Chauffeur :</label>
+                    <input type="text" id="chauffeur" placeholder="Nom du chauffeur">
+                    <label for="respo">Responsable :</label>
+                    <input type="text" id="respo" placeholder="Nom du responsable">
+                    <button type="submit">Affecter</button>
+                </form>
+            </div>
+        </div>
     </section>
     
     <section id="respo" class="space">
         <h2>Espace Responsable Bus</h2>
-        <ul>
-            <li>Notifier les tuteurs (arrivée, absence, retard)</li>
-            <li>Gérer les notifications en temps réel</li>
-        </ul>
         <form id="login-respo">
             <label for="email-respo">Email :</label>
             <input type="email" id="email-respo" required>
             <label for="password-respo">Mot de passe :</label>
             <input type="password" id="password-respo" required>
-            <button type="submit">Se connecter</button>
+            <button type="submit" onclick="login('respo')">Se connecter</button>
         </form>
+        <div id="respo-content" class="hidden">
+            <h3>Options pour Responsable Bus</h3>
+            <button onclick="showSubSection('notifications')">Envoyer des notifications</button>
+            <div id="notifications" class="sub-section hidden">
+                <h4>Notifier les tuteurs</h4>
+                <form>
+                    <label for="eleve">Élève :</label>
+                    <input type="text" id="eleve" placeholder="Nom de l'élève">
+                    <label for="message">Message :</label>
+                    <select id="message">
+                        <option>L’élève est arrivé à la maison.</option>
+                        <option>L’élève était absent aujourd’hui.</option>
+                        <option>L’élève est en retard plusieurs fois.</option>
+                    </select>
+                    <button type="submit">Envoyer notification</button>
+                </form>
+            </div>
+        </div>
     </section>
     
     <script>
@@ -73,10 +149,27 @@
             // Afficher la section sélectionnée
             document.getElementById(sectionId).style.display = 'block';
         }
-        // Par défaut, cacher les sections
+        
+        function login(space) {
+            // Simulation de connexion (en vrai, vérifier avec backend)
+            document.getElementById(space + '-content').classList.remove('hidden');
+            event.preventDefault(); // Empêcher soumission du formulaire
+        }
+        
+        function showSubSection(subId) {
+            // Cacher toutes les sous-sections
+            const subs = document.querySelectorAll('.sub-section');
+            subs.forEach(sub => sub.classList.add('hidden'));
+            // Afficher la sous-section sélectionnée
+            document.getElementById(subId).classList.remove('hidden');
+        }
+        
+        // Par défaut, cacher les sections et sous-sections
         document.addEventListener('DOMContentLoaded', () => {
             const sections = document.querySelectorAll('.space');
             sections.forEach(section => section.style.display = 'none');
+            const subs = document.querySelectorAll('.sub-section');
+            subs.forEach(sub => sub.classList.add('hidden'));
         });
     </script>
 </body>

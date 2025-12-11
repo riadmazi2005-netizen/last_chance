@@ -3,142 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transport Scolaire</title>
-    <link rel="stylesheet" href="style.css">
+    <title>SchoolBus - Transport Scolaire</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Transport Scolaire</h1>
-        <p>Gérez facilement les inscriptions et notifications pour un transport sûr.</p>
-    </header>
+    <div class="container">
+        <div class="home-wrapper">
+            <div class="logo-section">
+                <div class="logo">
+                    <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                        <rect width="60" height="60" rx="12" fill="#2563eb"/>
+                        <path d="M15 25h30v15c0 2-1 3-3 3H18c-2 0-3-1-3-3V25z" fill="white"/>
+                        <rect x="15" y="20" width="30" height="5" rx="2" fill="white"/>
+                        <circle cx="22" cy="45" r="3" fill="#fff"/>
+                        <circle cx="38" cy="45" r="3" fill="#fff"/>
+                        <rect x="20" y="28" width="6" height="8" rx="1" fill="#2563eb"/>
+                        <rect x="34" y="28" width="6" height="8" rx="1" fill="#2563eb"/>
+                    </svg>
+                </div>
+                <h1 class="app-title">SchoolBus Pro</h1>
+                <p class="app-subtitle">Gestion intelligente du transport scolaire</p>
+            </div>
 
-    <nav id="menu">
-        <button onclick="showSection('admin')">Espace Administrateur</button>
-        <button onclick="showSection('tuteur')">Espace Tuteur</button>
-        <button onclick="showSection('respo')">Espace Respo_Bus</button>
-    </nav>
+            <div class="spaces-grid">
+                <div class="space-card" onclick="navigateTo('tuteur')">
+                    <div class="space-icon tuteur-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h2 class="space-title">Espace Tuteur</h2>
+                    <p class="space-description">Suivez vos enfants en temps réel</p>
+                    <button class="btn-primary">Accéder</button>
+                </div>
 
-    <div id="admin" class="section hidden">
-        <h2>Espace Administrateur</h2>
-        <p>Gérez tous les aspects du transport : bus, routes, élèves, chauffeurs, inscriptions et communications.</p>
-        
-        <div class="dashboard">
-            <h3>Ajouter un Bus</h3>
-            <form>
-                <label>Numéro du Bus :</label>
-                <input type="text" placeholder="Ex: BUS-001">
-                <label>Capacité :</label>
-                <input type="number" placeholder="Ex: 50">
-                <button type="submit">Ajouter</button>
-            </form>
-            
-            <h3>Liste des Élèves Inscrits aux Transports</h3>
-            <table>
-                <tr><th>Nom</th><th>Classe</th><th>Adresse</th><th>Trajet</th><th>Statut</th></tr>
-                <tr><td>Jean Dupont</td><td>CM2</td><td>123 Rue A</td><td>École → Maison</td><td>Validé</td></tr>
-                <tr><td>Marie Curie</td><td>CE1</td><td>456 Rue B</td><td>École → Maison</td><td>Validé</td></tr>
-                <tr><td>Paul Martin</td><td>CP</td><td>789 Rue C</td><td>École → Maison</td><td>En attente</td></tr>
-            </table>
-            
-            <h3>Liste des Chauffeurs</h3>
-            <table>
-                <tr><th>Nom</th><th>Numéro de Permis</th><th>Bus Assigné</th></tr>
-                <tr><td>Alice Dupont</td><td>123456789</td><td>BUS-001</td></tr>
-                <tr><td>Bob Leroy</td><td>987654321</td><td>BUS-002</td></tr>
-            </table>
-            
-            <h3>Valider/Refuser les Inscriptions</h3>
-            <p>Inscriptions en attente :</p>
-            <ul>
-                <li>Paul Martin (CP, 789 Rue C) - <button>Valider</button> <button>Refuser</button></li>
-                <li>Sophie Blanc (CE2, 101 Rue D) - <button>Valider</button> <button>Refuser</button></li>
-            </ul>
-            
-            <h3>Créer un Trajet/Horaires</h3>
-            <form>
-                <label>Nom du Trajet :</label>
-                <input type="text" placeholder="Ex: École → Maison">
-                <label>Heure de Départ :</label>
-                <input type="time">
-                <label>Heure d'Arrivée :</label>
-                <input type="time">
-                <label>Bus Assigné :</label>
-                <select>
-                    <option>BUS-001</option>
-                    <option>BUS-002</option>
-                </select>
-                <button type="submit">Créer Trajet</button>
-            </form>
-            
-            <h3>Envoyer un Message aux Tuteurs</h3>
-            <form>
-                <label>Sélectionner un Tuteur :</label>
-                <select>
-                    <option>Tuteur de Jean Dupont</option>
-                    <option>Tuteur de Marie Curie</option>
-                </select>
-                <label>Message :</label>
-                <textarea placeholder="Tapez votre message ici..."></textarea>
-                <button type="submit">Envoyer</button>
-            </form>
+                <div class="space-card" onclick="navigateTo('responsable')">
+                    <div class="space-icon responsable-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="3" width="15" height="13"></rect>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                        </svg>
+                    </div>
+                    <h2 class="space-title">Espace Responsable Bus</h2>
+                    <p class="space-description">Gérez votre bus et les élèves</p>
+                    <button class="btn-primary">Accéder</button>
+                </div>
+
+                <div class="space-card" onclick="navigateTo('admin')">
+                    <div class="space-icon admin-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5"></path>
+                            <path d="M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <h2 class="space-title">Espace Administrateur</h2>
+                    <p class="space-description">Administrez votre système</p>
+                    <button class="btn-primary">Accéder</button>
+                </div>
+            </div>
+
+            <footer class="home-footer">
+                <p>© 2025 SchoolBus Pro - Tous droits réservés</p>
+            </footer>
         </div>
-        <button onclick="hideAll()">Retour</button>
     </div>
 
-    <div id="tuteur" class="section hidden">
-        <h2>Espace Tuteur</h2>
-        <p>Inscrivez vos élèves au transport scolaire.</p>
-        <form>
-            <label>Nom de l'Élève :</label>
-            <input type="text" placeholder="Ex: Jean Dupont">
-            <label>Classe :</label>
-            <input type="text" placeholder="Ex: CM2">
-            <label>Adresse :</label>
-            <input type="text" placeholder="Ex: 123 Rue A">
-            <button type="submit">Inscrire</button>
-        </form>
-        <h3>Inscriptions Récentes</h3>
-        <ul>
-            <li>Jean Dupont - CM2 - Inscrit le 01/10/2023</li>
-            <li>Marie Curie - CE1 - Inscrit le 02/10/2023</li>
-        </ul>
-        <button onclick="hideAll()">Retour</button>
-    </div>
-
-    <div id="respo" class="section hidden">
-        <h2>Espace Respo_Bus</h2>
-        <p>Notifiez les parents des événements (absence, retard, arrivée).</p>
-        <form>
-            <label>Événement :</label>
-            <select>
-                <option>Élève absent</option>
-                <option>Bus en retard</option>
-                <option>Élève arrivé à la maison</option>
-            </select>
-            <label>Nom de l'Élève :</label>
-            <input type="text" placeholder="Ex: Jean Dupont">
-            <label>Message :</label>
-            <textarea placeholder="Détails supplémentaires..."></textarea>
-            <button type="submit">Envoyer Notification</button>
-        </form>
-        <h3>Notifications Récentes</h3>
-        <ul>
-            <li>Jean Dupont - Absent - 03/10/2023</li>
-            <li>Bus en retard - 04/10/2023</li>
-        </ul>
-        <button onclick="hideAll()">Retour</button>
-    </div>
-
-    <script>
-        function showSection(id) {
-            hideAll();
-            document.getElementById(id).classList.remove('hidden');
-        }
-        function hideAll() {
-            document.getElementById('admin').classList.add('hidden');
-            document.getElementById('tuteur').classList.add('hidden');
-            document.getElementById('respo').classList.add('hidden');
-        }
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>

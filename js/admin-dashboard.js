@@ -37,12 +37,27 @@ function switchSection(section) {
 }
 
 function loadDashboardData() {
+  loadStats()
   loadRequests()
   loadStudents()
   loadDrivers()
   loadResponsables()
   loadBuses()
   loadRoutes()
+}
+
+function loadStats() {
+  fetch('../api/dashboard.php?action=stats')
+    .then(response => response.json())
+    .then(stats => {
+      document.getElementById("totalStudents").textContent = stats.total_students || 0
+      document.getElementById("totalBuses").textContent = stats.active_buses || 0
+      document.getElementById("totalDrivers").textContent = stats.total_drivers || 0
+      document.getElementById("totalResponsables").textContent = stats.total_responsables || 0
+    })
+    .catch(error => {
+      console.error('Erreur lors du chargement des statistiques:', error)
+    })
 }
 
 function loadRequests() {
@@ -112,22 +127,18 @@ function rejectRequest(id) {
 }
 
 function loadStudents() {
-  const students = [
-    { id: 1, name: "Ahmed Alaoui", class: "6ème A", bus: "Bus #12", school: "École Al Madina" },
-    { id: 2, name: "Fatima Bennani", class: "5ème B", bus: "Bus #12", school: "École Al Madina" },
-    { id: 3, name: "Youssef Idrissi", class: "4ème C", bus: "Bus #8", school: "École Al Andalous" },
-    { id: 4, name: "Sara Moussaoui", class: "5ème A", bus: "Bus #12", school: "École Al Madina" },
-    { id: 5, name: "Omar Tazi", class: "6ème B", bus: "Bus #8", school: "École Al Andalous" },
-  ]
-
-  const table = document.getElementById("studentsTable")
-  table.innerHTML = `
+  fetch('../api/dashboard.php?action=students')
+    .then(response => response.json())
+    .then(students => {
+      const table = document.getElementById("studentsTable")
+      table.innerHTML = `
         <table>
             <thead>
                 <tr>
                     <th>Nom</th>
                     <th>Classe</th>
                     <th>École</th>
+                    <th>Tuteur</th>
                     <th>Bus</th>
                     <th>Actions</th>
                 </tr>
@@ -137,10 +148,11 @@ function loadStudents() {
                   .map(
                     (student) => `
                     <tr>
-                        <td>${student.name}</td>
-                        <td>${student.class}</td>
-                        <td>${student.school}</td>
-                        <td>${student.bus}</td>
+                        <td>${student.nom} ${student.prenom}</td>
+                        <td>${student.classe || '-'}</td>
+                        <td>${student.ecole || '-'}</td>
+                        <td>${student.tuteur_nom ? student.tuteur_nom + ' ' + student.tuteur_prenom : '-'}</td>
+                        <td>${student.bus_numero || '-'}</td>
                         <td>
                             <button class="btn-edit" onclick="editStudent(${student.id})">Modifier</button>
                         </td>
@@ -152,23 +164,23 @@ function loadStudents() {
         </table>
     `
 
-  document.getElementById("totalStudents").textContent = students.length
+    })
+    .catch(error => {
+      console.error('Erreur lors du chargement des élèves:', error)
+    })
 }
 
 function loadDrivers() {
-  const drivers = [
-    { id: 1, name: "Mohammed Alami", cin: "AB123456", phone: "0612345678", bus: "Bus #12" },
-    { id: 2, name: "Hassan Bennani", cin: "CD789012", phone: "0623456789", bus: "Bus #8" },
-    { id: 3, name: "Karim Idrissi", cin: "EF345678", phone: "0634567890", bus: "Bus #15" },
-  ]
-
-  const grid = document.getElementById("driversGrid")
-  grid.innerHTML = drivers
-    .map(
-      (driver) => `
+  fetch('../api/dashboard.php?action=drivers')
+    .then(response => response.json())
+    .then(drivers => {
+      const grid = document.getElementById("driversGrid")
+      grid.innerHTML = drivers
+        .map(
+          (driver) => `
         <div class="data-card">
             <div class="card-header">
-                <h3 class="card-title">${driver.name}</h3>
+                <h3 class="card-title">${driver.nom} ${driver.prenom}</h3>
             </div>
             <div class="card-body">
                 <div class="card-row">
@@ -177,11 +189,11 @@ function loadDrivers() {
                 </div>
                 <div class="card-row">
                     <span class="card-label">Téléphone:</span>
-                    <span class="card-value">${driver.phone}</span>
+                    <span class="card-value">${driver.telephone || '-'}</span>
                 </div>
                 <div class="card-row">
                     <span class="card-label">Bus assigné:</span>
-                    <span class="card-value">${driver.bus}</span>
+                    <span class="card-value">${driver.bus_numero ? 'Bus #' + driver.bus_numero : '-'}</span>
                 </div>
             </div>
             <div class="card-actions">
@@ -190,23 +202,25 @@ function loadDrivers() {
             </div>
         </div>
     `,
-    )
-    .join("")
+        )
+        .join("")
+    })
+    .catch(error => {
+      console.error('Erreur lors du chargement des chauffeurs:', error)
+    })
 }
 
 function loadResponsables() {
-  const responsables = [
-    { id: 1, name: "Amina Tazi", cin: "GH901234", phone: "0645678901", bus: "Bus #12" },
-    { id: 2, name: "Fatima Moussaoui", cin: "IJ567890", phone: "0656789012", bus: "Bus #8" },
-  ]
-
-  const grid = document.getElementById("responsablesGrid")
-  grid.innerHTML = responsables
-    .map(
-      (resp) => `
+  fetch('../api/dashboard.php?action=responsables')
+    .then(response => response.json())
+    .then(responsables => {
+      const grid = document.getElementById("responsablesGrid")
+      grid.innerHTML = responsables
+        .map(
+          (resp) => `
         <div class="data-card">
             <div class="card-header">
-                <h3 class="card-title">${resp.name}</h3>
+                <h3 class="card-title">${resp.nom} ${resp.prenom}</h3>
             </div>
             <div class="card-body">
                 <div class="card-row">
@@ -215,11 +229,11 @@ function loadResponsables() {
                 </div>
                 <div class="card-row">
                     <span class="card-label">Téléphone:</span>
-                    <span class="card-value">${resp.phone}</span>
+                    <span class="card-value">${resp.telephone || '-'}</span>
                 </div>
                 <div class="card-row">
-                    <span class="card-label">Bus assigné:</span>
-                    <span class="card-value">${resp.bus}</span>
+                    <span class="card-label">Email:</span>
+                    <span class="card-value">${resp.email}</span>
                 </div>
             </div>
             <div class="card-actions">
@@ -228,38 +242,39 @@ function loadResponsables() {
             </div>
         </div>
     `,
-    )
-    .join("")
+        )
+        .join("")
+    })
+    .catch(error => {
+      console.error('Erreur lors du chargement des responsables:', error)
+    })
 }
 
 function loadBuses() {
-  const buses = [
-    { id: 1, number: "12", driver: "Mohammed Alami", responsable: "Amina Tazi", students: 24, capacity: 30 },
-    { id: 2, number: "8", driver: "Hassan Bennani", responsable: "Fatima Moussaoui", students: 18, capacity: 25 },
-    { id: 3, number: "15", driver: "Karim Idrissi", responsable: "Non assigné", students: 20, capacity: 28 },
-  ]
-
-  const grid = document.getElementById("busGrid")
-  grid.innerHTML = buses
-    .map(
-      (bus) => `
+  fetch('../api/dashboard.php?action=buses')
+    .then(response => response.json())
+    .then(buses => {
+      const grid = document.getElementById("busGrid")
+      grid.innerHTML = buses
+        .map(
+          (bus) => `
         <div class="data-card">
             <div class="card-header">
-                <h3 class="card-title">Bus #${bus.number}</h3>
-                <span class="status-badge status-active">Actif</span>
+                <h3 class="card-title">Bus #${bus.numero}</h3>
+                <span class="status-badge status-${bus.status}">${bus.status === 'active' ? 'Actif' : bus.status}</span>
             </div>
             <div class="card-body">
                 <div class="card-row">
                     <span class="card-label">Chauffeur:</span>
-                    <span class="card-value">${bus.driver}</span>
+                    <span class="card-value">${bus.driver_nom ? bus.driver_nom + ' ' + bus.driver_prenom : 'Non assigné'}</span>
                 </div>
                 <div class="card-row">
                     <span class="card-label">Responsable:</span>
-                    <span class="card-value">${bus.responsable}</span>
+                    <span class="card-value">${bus.responsable_nom ? bus.responsable_nom + ' ' + bus.responsable_prenom : 'Non assigné'}</span>
                 </div>
                 <div class="card-row">
                     <span class="card-label">Élèves:</span>
-                    <span class="card-value">${bus.students}/${bus.capacity}</span>
+                    <span class="card-value">${bus.students_count || 0}/${bus.capacite}</span>
                 </div>
             </div>
             <div class="card-actions">
@@ -268,10 +283,13 @@ function loadBuses() {
             </div>
         </div>
     `,
-    )
-    .join("")
+        )
+        .join("")
 
-  document.getElementById("totalBuses").textContent = buses.length
+    })
+    .catch(error => {
+      console.error('Erreur lors du chargement des bus:', error)
+    })
 }
 
 function loadRoutes() {

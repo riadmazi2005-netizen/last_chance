@@ -3,7 +3,7 @@
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'schoolbus');
 define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_PASS', ''); // Mot de passe vide pour XAMPP par défaut
 
 // Connexion à la base de données
 try {
